@@ -27,7 +27,7 @@ public class RegistrationService {
                 request.getLastname(),
                 request.getEmail(),
                 request.getPassword(),
-                AppUserRole.USER
+                AppUserRole.USER // hardcoded as USER for now but need to be dynamic for admin or user
         );
 
         String token = appUserService.signUpUser(appUser);

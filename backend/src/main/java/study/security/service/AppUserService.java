@@ -32,7 +32,7 @@ public class AppUserService implements UserDetailsService {
     public String signUpUser(AppUser appUser){
         log.info("===== inside signUpUser() =====");
         boolean userExists = appUserRepository.findByEmail((appUser.getEmail())).isPresent();
-        if(userExists){
+        if (userExists) {
             throw new IllegalStateException("User already exists");
         }
         String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
