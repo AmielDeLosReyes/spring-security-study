@@ -1,0 +1,24 @@
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">District Name</th>
+        <th scope="col">State ID</th>
+        <th scope="col">State Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (district of districtList; track $index) {
+        <tr>
+            <th scope="row">{{$index + 1}}</th>
+            <td>{{district.districtName}}</td>
+            <td>{{district.stateId}}</td>
+            <td>{{district.stateName}}</td>
+          </tr>
+      }
+      
+      
+    </tbody>
+  </table>
+  

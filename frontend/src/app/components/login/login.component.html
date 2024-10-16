@@ -1,1 +1,45 @@
-<p>login works! Hello {{firstName}}!</p>
+<div class="row">
+    <div class="col-3"> 
+    </div>
+    <div class="col-3"> 
+        <p>Hello {{firstName}}!</p>
+    </div>
+    <div class="col-3"> 
+        <p>Hello {{firstName}}!</p>
+    </div>
+    <div class="col-3"> 
+        <p>Selected City: {{selectedCity}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3"> 
+        <input type="text" [value]="firstName"/>
+    </div>
+    <div class="col-3"> 
+        <input type="text" [(ngModel)]="firstName"/>
+    </div>
+    <div class="col-3"> 
+        <input [type]="inputType" value="Welcome" (click)="showWelcomeAlert(firstName)"/>
+    </div>
+    <div class="col-3"> 
+        <select [(ngModel)]="selectedCity">
+            <option value="YEG">YEG</option>
+            <option value="YVR">YVR</option>
+            <option value="YYC">YYC</option>
+        </select>
+    </div>
+
+    <div class="btn-group">
+        <button type="button" class="btn " [ngClass]="currentComponent == 'States' ? 'btn-primary' : 'btn-secondary'" (click)="changeTab('States')">States</button>
+        <button type="button" class="btn " [ngClass]="currentComponent == 'District' ? 'btn-primary' : 'btn-secondary'"(click)="changeTab('District')">District</button>
+    </div>
+
+    <div class="row">
+        <div class="col-12" *ngIf="currentComponent == 'States'">
+            <app-states></app-states>
+        </div>
+        <div class="col-12" *ngIf="currentComponent == 'District'">
+            <app-distric></app-distric>
+        </div>
+    </div>
+</div> 

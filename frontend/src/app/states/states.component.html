@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-4">
+        <h3>States List:</h3>
+        <ul>
+            <li *ngFor="let state of statesList">{{state.stateName}}</li>
+        </ul>
+    </div>
+    <div class="col-4">
+        <select>
+            <option *ngFor="let state of statesList" [value]="state.stateId">{{state.stateName}}</option>
+        </select>
+    </div>
+</div>
