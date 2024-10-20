@@ -19,7 +19,9 @@
         <input type="text" [(ngModel)]="firstName"/>
     </div>
     <div class="col-3"> 
-        <input [type]="inputType" value="Welcome" (click)="showWelcomeAlert(firstName)"/>
+        <!-- <input [type]="inputType" value="Welcome" (click)="showWelcomeAlert(firstName)"/> -->
+        <a [routerLink]="['/login-form']" routerLinkActive="active" class="btn btn-primary">Login here</a>
+
     </div>
     <div class="col-3"> 
         <select [(ngModel)]="selectedCity">

@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MasterService } from '../service/master.service';
-import { APIResponseModel, IDistrict } from '../model/interface/state';
+import { MasterService } from '../../service/master.service';
+import { APIResponseModel, IDistrict } from '../../components/model/interface/state';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-distric',
@@ -25,5 +26,11 @@ export class DistricComponent implements OnInit {
     })
   }
   
+  // projectForm: FormGroup = new FormGroup ({
+	// 	clientProjectId: new FormControl(0),
+	// 	projectName: new FormControl("", [Validators.required, Validators.minLength(4)]),
+	// 	startDate: new FormControl(""),
+	// 	completedDate: new FormControl("")
+	// })
   
 }

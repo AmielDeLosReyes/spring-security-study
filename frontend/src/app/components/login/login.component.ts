@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { first } from 'rxjs';
-import { LoginFormComponent } from '../../login-form/login-form.component';
+import { LoginFormComponent } from '../login-form/login-form.component';
 import { RegistrationComponent } from '../registration/registration.component';
 import { CommonModule } from '@angular/common';
-import { StatesComponent } from '../../states/states.component';
-import { DistricComponent } from "../../distric/distric.component";
+import { StatesComponent } from '../states/states.component';
+import { DistricComponent } from "../distric/distric.component";
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, LoginFormComponent, RegistrationComponent, CommonModule, StatesComponent, DistricComponent],
+  imports: [FormsModule, LoginFormComponent, RegistrationComponent, CommonModule, StatesComponent, DistricComponent, RouterOutlet, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

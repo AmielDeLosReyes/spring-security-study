@@ -1,0 +1,45 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center">Login</h2>
+            <form >
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        ngModel 
+                        required 
+                        placeholder="Enter your email"
+                        class="form-control" 
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        ngModel 
+                        required 
+                        placeholder="Enter your password"
+                        class="form-control" 
+                    />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </div>
+
+                <div class="form-group text-center">
+                    <p>Don't have an account? <a routerLink="/registration">Register here</a></p>
+                    <p><a routerLink="/forgot-password">Forgot ?</a></p>
+                    <p><a [routerLink]="['/']" routerLinkActive="active">Go back home</a></p> <!-- Added Go back home link -->
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
