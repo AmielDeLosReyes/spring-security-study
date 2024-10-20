@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -9,5 +10,6 @@ import { RouterModule } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  http = inject(HttpClient);
 
 }

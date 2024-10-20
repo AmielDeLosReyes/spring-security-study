@@ -7,6 +7,9 @@ import study.security.service.RegistrationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping( "/registration")
@@ -14,9 +17,16 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
 
     private RegistrationService registrationService;
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
-    public ResponseEntity<String> register(@RequestBody @Valid RegistrationRequest request){
-        return ResponseEntity.ok(registrationService.register(request));
+    public ResponseEntity<Map<String, String>> register(@RequestBody @Valid RegistrationRequest request) {
+        String token = registrationService.register(request);
+
+        // Create a map to hold the token in JSON format
+        Map<String, String> response = new HashMap<>();
+        response.put("token", token);
+
+        return ResponseEntity.ok(response);
     }
     @GetMapping("/confirmation")
     public ResponseEntity<String> confirm(@RequestParam("token") String token) {

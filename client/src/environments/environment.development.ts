@@ -1,3 +1,4 @@
 export const environment = {
-    GET_DISTRICTS_URL: '/api/Annadata/GetAllDistrict'
+    BASE_URL: 'http://localhost:8080',
+    REGISTER_USER_URL: '/registration'
 };

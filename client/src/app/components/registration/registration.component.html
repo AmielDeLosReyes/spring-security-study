@@ -1,70 +1,126 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h2 class="text-center">Register</h2>
-            <form>
-                <div class="form-group">
-                    <label for="firstname">First Name:</label>
-                    <input 
-                        type="text" 
-                        id="firstname" 
-                        name="firstname" 
-                        ngModel 
-                        required 
-                        placeholder="Enter your first name"
-                        class="form-control" 
-                    />
-                </div>
-
-                <div class="form-group">
-                    <label for="lastname">Last Name:</label>
-                    <input 
-                        type="text" 
-                        id="lastname" 
-                        name="lastname" 
-                        ngModel 
-                        required 
-                        placeholder="Enter your last name"
-                        class="form-control" 
-                    />
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        ngModel 
-                        required 
-                        placeholder="Enter your email"
-                        class="form-control" 
-                    />
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        ngModel 
-                        required 
-                        minlength="8"
-                        placeholder="Enter your password"
-                        class="form-control" 
-                    />
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Register</button>
-                </div>
-
-                <div class="form-group text-center">
-                    <p>Already have an account? <a routerLink="/login">Login here</a></p>
-                    <p><a [routerLink]="['/']" routerLinkActive="active">Go back home</a></p>
-                </div>
-            </form>
+      <div class="col-md-6">
+  
+        <h2 class="text-center">Register</h2>
+  
+        <!-- Success Alert -->
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
         </div>
+  
+        <!-- Error Alert -->
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+  
+        <form #registrationForm="ngForm" (ngSubmit)="onSubmit()"> 
+          <div class="form-group">
+            <label for="firstname">First Name:</label>
+            <input 
+              type="text" 
+              #firstname="ngModel" required 
+              id="firstname" 
+              name="firstname" 
+              [(ngModel)]="userObj.firstname"
+              placeholder="Enter your first name"
+              class="form-control" 
+            />
+            @if(firstname.touched) {
+                <div class="text-danger">
+                    @if(firstname?.errors?.['required']) {
+                        <span>This is required</span>
+                    }
+                </div>
+            }
+          </div>
+  
+          <div class="form-group">
+            <label for="lastname">Last Name:</label>
+            <input 
+              type="text" 
+              #lastname="ngModel" required 
+              id="lastname" 
+              name="lastname" 
+              [(ngModel)]="userObj.lastname"
+              required 
+              placeholder="Enter your last name"
+              class="form-control" 
+            />
+            @if(lastname.touched) {
+                <div class="text-danger">
+                    @if(lastname?.errors?.['required']) {
+                        <span>This is required</span>
+                    }
+                </div>
+            }
+          </div>
+  
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input 
+              type="email" 
+              #email="ngModel" required 
+              id="email" 
+              name="email" 
+              [(ngModel)]="userObj.email"
+              required 
+              placeholder="Enter your email"
+              class="form-control" 
+            />
+            @if(email.touched) {
+                <div class="text-danger">
+                    @if(email?.errors?.['required']) {
+                        <span>This is required</span>
+                    }
+                </div>
+            }
+          </div>
+  
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input 
+              type="password" 
+              #password="ngModel" required 
+              id="password" 
+              name="password" 
+              [(ngModel)]="userObj.password"
+              required 
+              minlength="8"
+              placeholder="Enter your password"
+              class="form-control" 
+            />
+            @if(email.touched) {
+                <div class="text-danger">
+                    @if(email?.errors?.['required']) {
+                        <span>This is required</span>
+                    }
+                </div>
+                @if (password.errors?.['minlength']) {
+                    <div class="text-danger">
+                        <span>Password must be at least {{ password?.errors?.['minlength'].requiredLength }} characters long.</span>
+
+                    </div>
+                  }
+            }
+          </div>
+  
+          <div class="form-group">
+              @if(isLoading) {
+                <button class="btn btn-primary" type="submit" disabled>
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Loading...
+                </button>
+              } @else {
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="!registrationForm.valid">Register</button>
+              }
+          </div>
+  
+          <div class="form-group text-center">
+            <p>Already have an account? <a routerLink="/login">Login here</a></p>
+            <p><a [routerLink]="['/']" routerLinkActive="active">Go back home</a></p>
+          </div>
+        </form>
+      </div>
     </div>
-</div>
+  </div>

@@ -1,6 +1,10 @@
 package study.security.config.security;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import study.security.service.AppUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,12 +32,14 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
-                .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())  // Enable CORS
+                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for simplicity
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/registration/**").permitAll();
+                    auth.requestMatchers("/registration/**", "/login/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
-                .formLogin(Customizer.withDefaults()).build();
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless session
+                .build();
     }
     @Bean
     public AuthenticationManager authenticationManager() {
@@ -53,5 +59,18 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationEventPublisher authenticationEventPublisher() {
         return new DefaultAuthenticationEventPublisher();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://localhost:4200"); // Allow your frontend origin
+        configuration.addAllowedMethod("*"); // Allow all HTTP methods (GET, POST, etc.)
+        configuration.addAllowedHeader("*"); // Allow all headers
+        configuration.setAllowCredentials(true); // Allow credentials if needed
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
