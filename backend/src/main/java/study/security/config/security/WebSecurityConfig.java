@@ -21,6 +21,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.Arrays;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 
 @Configuration
@@ -29,16 +31,19 @@ import java.util.Arrays;
 public class WebSecurityConfig {
     private final AppUserService appUserService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JwtRequestFilter jwtRequestFilter;
+
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
                 .cors(Customizer.withDefaults())  // Enable CORS
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for simplicity
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/registration/**", "/login/**").permitAll();
+                    auth.requestMatchers("/registration/**", "/login/**", "/auth/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless session
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
     @Bean
