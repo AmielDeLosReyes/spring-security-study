@@ -40,7 +40,7 @@ public class RegistrationService {
     }
     @Transactional
     public String confirmToken(String token) {
-        String loginLink = "http://localhost:8080/registration/login";
+        String loginLink = "http://localhost:4200/login";
         Token confirmationToken = tokenService
                 .getToken(token)
                 .orElseThrow(() ->

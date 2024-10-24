@@ -41,10 +41,20 @@ export class RegistrationComponent {
         tap(response => {
           this.successMessage = "Registration successful";
           console.log('Registration successful:', response);
+
+          // Clear success message after 3 seconds
+          setTimeout(() => {
+            this.successMessage = null;
+          }, 3000);
         }),
         catchError(error => {
           this.errorMessage = "Registration failed";
           console.error('Error during registration:', error);
+
+          // Clear error message after 3 seconds
+          setTimeout(() => {
+            this.errorMessage = null;
+          }, 3000);
           return of(null); // Handle the error gracefully
         }),
         finalize(() => {
