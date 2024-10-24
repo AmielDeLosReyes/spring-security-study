@@ -2,32 +2,33 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h2 class="text-center">Login</h2>
-            <form >
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        ngModel 
-                        required 
-                        placeholder="Enter your email"
-                        class="form-control" 
-                    />
-                </div>
+                    <input [(ngModel)]="userObj.email" name="email" required type="email" 
+                    #email="ngModel"
+                    class="form-control" placeholder="Enter your email">
+                    @if(email.touched) {
+                        <div class="text-danger">
+                            @if(email?.errors?.['required']) {
+                                <span>This is required</span>
+                            }
+                        </div>
+                    }
+                  </div>
 
-                <div class="form-group">
+                  <div class="form-group">
                     <label for="password">Password:</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        ngModel 
-                        required 
-                        placeholder="Enter your password"
-                        class="form-control" 
-                    />
-                </div>
+                    <input [(ngModel)]="userObj.password" name="password" required type="password"
+                    #password="ngModel" class="form-control" placeholder="Enter your password">
+                    @if(password.touched) {
+                        <div class="text-danger">
+                            @if(password?.errors?.['required']) {
+                                <span>This is required</span>
+                            }
+                        </div>
+                    }
+                  </div>
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block">Login</button>
