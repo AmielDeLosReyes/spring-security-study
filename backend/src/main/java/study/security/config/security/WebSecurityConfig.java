@@ -40,6 +40,8 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for simplicity
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/registration/**", "/login/**", "/auth/**").permitAll();
+                    auth.requestMatchers("/user/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers("/admin/**").hasRole("ADMIN");
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless session

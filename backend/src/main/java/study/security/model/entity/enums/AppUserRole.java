@@ -1,5 +1,6 @@
 package study.security.model.entity.enums;
 
 public enum AppUserRole {
-    USER,ADMIN
+    ROLE_USER,
+    ROLE_ADMIN
 }
