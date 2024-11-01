@@ -1,1 +1,27 @@
-<p>manage-patient works!</p>
+<div class="container mt-4">
+    <div class="card shadow-sm border-light mt-3">
+      <div class="card-header bg-light text-dark">
+        <h5>All Patients</h5>
+      </div>
+      <div class="card-body">
+        <!-- Patient List using @for loop -->
+        @for (patient of patientList; track $index) {
+          <div class="patient-entry border-bottom py-3 d-flex justify-content-between align-items-center">
+            <!-- Patient Details -->
+            <div class="patient-info">
+              <h6 class="mb-0">{{$index + 1}}. {{patient.name}}</h6>
+              <p class="mb-0 text-muted">
+                Age: {{patient.age}} | City: {{patient.city}} | Gender: {{patient.gender}}
+              </p>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="patient-actions">
+              <button (click)="onEdit(patient.patientId)" class="btn btn-outline-secondary btn-sm me-2">Edit</button>
+              <button (click)="onDelete(patient.patientId)" class="btn btn-outline-danger btn-sm">Delete</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+</div>
