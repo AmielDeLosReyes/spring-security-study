@@ -1,47 +1,55 @@
 /* Navbar brand styling */
 .navbar-brand {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-left: 1rem; /* Add left margin for spacing */
-  }
-  
-  /* Navbar link styling */
-  .navbar-nav .nav-link {
-    font-size: 1rem;
-    margin-right: 1rem; /* Add right margin for spacing between links */
-    color: #333; /* Darker color for better visibility */
-  }
-  
-  /* Active and Hover state for links */
-  .navbar-nav .nav-link:hover, 
-  .navbar-nav .nav-link:focus, 
-  .navbar-nav .nav-link.active {
-    color: #007bff; /* Change color on hover or active */
-  }
-  
-  /* Logout link styling */
-  .navbar-nav .nav-link.text-danger {
-    font-weight: bold;
-  }
-  
-  /* Toggle button (mobile view) */
-  .navbar-toggler {
-    border: none;
-  }
-  
-  .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-  }
-  
-  /* For responsiveness */
-  @media (max-width: 992px) {
-    .navbar-nav {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-left: 1rem; /* Add left margin for spacing */
+}
+
+/* Navbar link styling */
+.navbar-nav .nav-link {
+  font-size: 1rem;
+  margin-right: 1rem; /* Add right margin for spacing between links */
+  color: #333; /* Darker color for better visibility */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Active and Hover state for links */
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.active {
+  background-color: #f0f0f0; /* Light gray background on hover */
+  color: #333; /* Consistent color */
+}
+
+/* Logout link styling */
+.navbar-nav .btn-outline-danger {
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.navbar-nav .btn-outline-danger:hover {
+  background-color: #f8d7da; /* Light red background for hover */
+  color: #721c24; /* Darker red text on hover */
+  border-color: #f5c6cb; /* Border color for consistency */
+}
+
+/* Toggle button (mobile view) */
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* For responsiveness */
+@media (max-width: 992px) {
+  .navbar-nav {
       margin-top: 1rem;
-    }
-  
-    .navbar-nav .nav-link {
+  }
+
+  .navbar-nav .nav-link {
       margin-right: 0; /* Remove margin in mobile */
       text-align: center;
-    }
   }
-  
+}

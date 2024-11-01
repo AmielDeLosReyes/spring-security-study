@@ -1,0 +1,25 @@
+/* Style for the nav links */
+.nav-tabs .nav-link {
+    color: #333; /* Darker text color for better visibility */
+    background-color: #f8f9fa; /* Light background color for tabs */
+    border: 1px solid transparent; /* Transparent border to maintain space */
+    border-radius: 0.25rem; /* Rounded corners */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #e9ecef; /* Slightly darker background for the active tab */
+    color: #212529; /* Darker text color for active tab */
+    border-color: #dee2e6; /* Border color for active tab */
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #e2e6ea; /* Light gray background on hover */
+    color: #212529; /* Darker text color on hover */
+    border-color: #dee2e6; /* Match the border color on hover */
+}
+
+/* Optional: Add shadow effect for a polished look */
+.nav-tabs .nav-link.active {
+    box-shadow: 0 4px 2px -2px gray; /* Shadow for active tab */
+}

@@ -6,10 +6,14 @@ import { authGuard } from './guards/auth.guard';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MainContentComponent } from './components/main-content/main-content.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PatientManagementComponent } from './components/patient-management/patient-management.component';
+import { PatientManagementComponent } from './components/patients/patient-management/patient-management.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
+import { PatientNavbarComponent } from './components/patients/patient-navbar/patient-navbar.component';
+import { AddPatientComponent } from './components/patients/add-patient/add-patient.component';
+import { UpdatePatientComponent } from './components/patients/update-patient/update-patient.component';
+import { ManagePatientComponent } from './components/patients/manage-patient/manage-patient.component';
 
 export const routes: Routes = [
     {
@@ -26,53 +30,62 @@ export const routes: Routes = [
         component: RegistrationComponent
     },
     {
-        path: 'user-landing-page', // New route for User Landing Page
+        path: 'user-landing-page',
         component: UserLandingPageComponent,
-        canActivate: [authGuard] // Protect this route with AuthGuard
+        canActivate: [authGuard]
     },
     {
-        path: 'navbar', 
+        path: 'navbar',
         component: NavbarComponent,
         canActivate: [authGuard]
     },
     {
-        path: 'main-content', 
+        path: 'main-content',
         component: MainContentComponent,
         canActivate: [authGuard]
     },
     {
-        path: 'user-dashboard', 
+        path: 'user-dashboard',
         component: DashboardComponent,
         canActivate: [authGuard]
     },
     {
-        path: 'patient-management', 
-        component: PatientManagementComponent,
-        canActivate: [authGuard]
-    },
-    {
-        path: 'user-appointments', 
+        path: 'user-appointments',
         component: AppointmentsComponent,
         canActivate: [authGuard]
     },
     {
-        path: 'user-reports', 
+        path: 'user-reports',
         component: ReportsComponent,
         canActivate: [authGuard]
     },
     {
-        path: 'user-settings', 
+        path: 'user-settings',
         component: SettingsComponent,
         canActivate: [authGuard]
+    },
+    {
+        path: 'patient-management',
+        component: PatientManagementComponent,
+        canActivate: [authGuard],
+        children: [
+            {
+                path: 'add',
+                component: AddPatientComponent // Component for adding a patient
+            },
+            {
+                path: 'list',
+                component: ManagePatientComponent // Component for adding a patient
+            },
+            {
+                path: 'update',
+                component: UpdatePatientComponent // Component for updating a patient
+            },
+            {
+                path: '', 
+                redirectTo: 'patient-management', 
+                pathMatch: 'full' // Ensure it matches exactly
+            }
+        ]
     }
-    // {
-    //     path: '',
-    //     component: LayoutComponent,
-    //     children: [
-    //         {
-    //             path: 'user-landing-page',
-    //             component: LandingPageComponent
-    //         }
-    //     ]
-    // }
 ];
