@@ -1,0 +1,14 @@
+
+/* Ensure full height and flex layout */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    flex: 1;
+}
+.footer {
+    margin-top: auto;
+}
