@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MasterServiceService } from '../../../service/master-service.service';
 import { Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-patient',
@@ -15,6 +16,8 @@ export class UpdatePatientComponent implements OnInit{
   patient = history.state.patient;
   loading = true;
   successMessage: string | null = null;
+
+  router = inject(Router);
 
 
   ngOnInit(): void {
@@ -36,8 +39,8 @@ export class UpdatePatientComponent implements OnInit{
         this.successMessage = 'Patient updated successfully!';
         setTimeout(() => {
           this.successMessage = null;
-          this.location.back();
-        }, 1000); // Fades out after 3 seconds and navigates back
+          this.router.navigate(['/patient-management/list']); // Redirect to the patient list page
+        }, 3000); // Fades out after 3 seconds and navigates back
       },
       error: (err) => {
         alert('Error updating patient');

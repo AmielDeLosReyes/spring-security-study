@@ -8,6 +8,9 @@ import { APIResponseModel, IPatient } from '../model/interface/APIResponseModel'
   providedIn: 'root'
 })
 export class MasterServiceService {
+  addPatient(newPatient: IPatient) {
+    return this.http.post<APIResponseModel>(environment.ADD_PATIENT_URL, newPatient);
+  }
 
   constructor(private http: HttpClient) { }
 

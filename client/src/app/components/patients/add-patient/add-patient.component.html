@@ -1,1 +1,36 @@
-<p>add-patient works!</p>
+<div class="container mt-4">
+    <h3>Add New Patient</h3>
+
+    <!-- Success Alert -->
+    @if(successMessage) {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ successMessage }}
+        <button type="button" class="btn-close" (click)="successMessage = null" aria-label="Close"></button>
+        </div>
+    }
+    
+    <form (ngSubmit)="addPatient()">
+      <div class="mb-3">
+        <label>Name</label>
+        <input [(ngModel)]="newPatient.name" name="name" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label>Mobile No</label>
+        <input [(ngModel)]="newPatient.mobileNo" name="mobileNo" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label>City</label>
+        <input [(ngModel)]="newPatient.city" name="city" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label>Age</label>
+        <input [(ngModel)]="newPatient.age" name="age" type="number" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label>Gender</label>
+        <input [(ngModel)]="newPatient.gender" name="gender" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary">Add Patient</button>
+    </form>
+  </div>
+  
