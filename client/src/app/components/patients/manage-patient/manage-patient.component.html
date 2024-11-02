@@ -1,4 +1,12 @@
 <div class="container mt-4">
+
+    <!-- Success Alert for Deletion -->
+    @if (deletedPatientName) {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        Patient <strong>{{ deletedPatientName }}</strong> was deleted successfully.
+        <button type="button" class="btn-close" aria-label="Close" (click)="deletedPatientName = null"></button>
+        </div>
+    }
     <div class="card shadow-sm border-light mt-3">
       <div class="card-header bg-light text-dark">
         <h5>All Patients</h5>
@@ -17,7 +25,7 @@
             
             <!-- Action Buttons -->
             <div class="patient-actions">
-              <button (click)="onEdit(patient.patientId)" class="btn btn-outline-secondary btn-sm me-2">Edit</button>
+                <button (click)="onEdit(patient)" class="btn btn-outline-secondary btn-sm me-2">Edit</button>
               <button (click)="onDelete(patient.patientId)" class="btn btn-outline-danger btn-sm">Delete</button>
             </div>
           </div>

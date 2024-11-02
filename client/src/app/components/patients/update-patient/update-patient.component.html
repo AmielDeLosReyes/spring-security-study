@@ -1,1 +1,43 @@
-<p>update-patient works!</p>
+@if(loading) {
+    <p>Loading patient data...</p>
+}
+
+@if(!loading) {
+    <div class="container mt-4">
+        <h3>Edit Patient</h3>
+
+        <!-- Success Alert -->
+        @if(successMessage) {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ successMessage }}
+            <button type="button" class="btn-close" (click)="successMessage = null" aria-label="Close"></button>
+            </div>
+        }
+      
+        <form (ngSubmit)="updatePatient()">
+          <div class="mb-3">
+            <label>Name</label>
+            <input [(ngModel)]="patient.name" name="name" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label>Mobile No</label>
+            <input [(ngModel)]="patient.mobileNo" name="mobileNo" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label>City</label>
+            <input [(ngModel)]="patient.city" name="city" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label>Age</label>
+            <input [(ngModel)]="patient.age" name="age" type="number" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label>Gender</label>
+            <input [(ngModel)]="patient.gender" name="gender" class="form-control" />
+          </div>
+          <button type="submit" class="btn btn-primary">Update Patient</button>
+        </form>
+      </div>
+}
+
+  
