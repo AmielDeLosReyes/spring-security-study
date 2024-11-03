@@ -1,1 +1,43 @@
-<p>appointments works!</p>
+<app-navbar></app-navbar>
+<div class="container mt-4">
+    <h2 class="mb-4">All Appointments</h2>
+  
+    <table class="table table-hover table-bordered shadow-sm">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">Appointment No.</th>
+          <th scope="col">Patient Name</th>
+          <th scope="col">Mobile No.</th>
+          <th scope="col">Appointment Date</th>
+          <th scope="col">Time</th>
+          <th scope="col">First Visit</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of appointments">
+          <td>{{ appointment.appointmentNo }}</td>
+          <td>{{ appointment.name }}</td>
+          <td>{{ appointment.mobileNo }}</td>
+          <td>{{ appointment.appointmentDate | date: 'MMM d, y' }}</td>
+          <td>{{ appointment.appointmentTime }}</td>
+          <td>{{ appointment.isFirstVisit ? 'Yes' : 'No' }}</td>
+          <td>
+            <span class="badge" [ngClass]="appointment.isDone ? 'bg-success' : 'bg-warning'">
+              {{ appointment.isDone ? 'Completed' : 'Pending' }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2" (click)="viewDetails(appointment.appointmentId)">
+              View
+            </button>
+            <button class="btn btn-sm btn-secondary" (click)="markAsDone(appointment.appointmentId)">
+              Mark as Done
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

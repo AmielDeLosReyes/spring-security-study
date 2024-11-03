@@ -1,1 +1,78 @@
-<p>dashboard works!</p>
+<app-navbar></app-navbar>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <h3>Dashboard</h3>
+      <!-- Current Date Display -->
+      <div class="text-muted" id="current-date">
+        <strong>Date:</strong> {{ currentDate |date:'fullDate' }}
+      </div>
+    </div>
+  
+    <!-- Cards Section -->
+    <div class="row mt-4 g-4">
+      <!-- Total Patients Card -->
+      <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm border-light">
+          <div class="card-body text-center">
+            <h6>Total Patients</h6>
+            <h2 class="text-primary">{{ dashboardData?.totalPatients }}</h2>
+            <button class="btn btn-light mt-3" [routerLink]="['/patient-management/list']">
+                View Patients
+            </button>
+            <i class="bi bi-person-fill" style="font-size: 1.5rem; color: #4c6377;"></i>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Total Appointments Card -->
+      <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm border-light">
+          <div class="card-body text-center">
+            <h6>Total Appointments</h6>
+            <h2 class="text-primary">{{ dashboardData?.totalAppointments }}</h2>
+            <button class="btn btn-light mt-3" [routerLink]="['/user-appointments']">
+                View Appointments
+            </button>
+            <i class="bi bi-calendar-event" style="font-size: 1.5rem; color: #4c6377;"></i>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Today's Appointments Card -->
+      <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm border-light">
+          <div class="card-body text-center">
+            <h6>Today's Appointments</h6>
+            <h2 class="text-primary">{{ dashboardData?.todaysTotalAppointments }}</h2>
+            <i class="bi bi-calendar-check" style="font-size: 1.5rem; color: #4c6377;"></i>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Today's Completed Appointments Card -->
+      <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm border-light">
+          <div class="card-body text-center">
+            <h6>Completed Appointments</h6>
+            <h2 class="text-primary">{{ dashboardData?.todaysTotalDoneAppointments }}</h2>
+            <i class="bi bi-check-circle" style="font-size: 1.5rem; color: #4c6377;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Calendar/Upcoming Section -->
+    <div class="card shadow-sm border-light mt-4">
+      <div class="card-header bg-light text-dark">
+        <h6 class="mb-0">Upcoming Appointments</h6>
+      </div>
+      <div class="card-body">
+        <!-- Simple Calendar or Date Picker -->
+        <input type="date" class="form-control" />
+        <p class="text-muted mt-3">
+          Select a date to view appointments or other activities.
+        </p>
+      </div>
+    </div>
+  </div>
+  

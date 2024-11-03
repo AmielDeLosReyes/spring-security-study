@@ -5,5 +5,7 @@ export const environment = {
     GET_ALL_PATIENTS_URL: '/api/HospitalAppointment/GetAllPatients',
     UPDATE_PATIENT_URL: '/api/HospitalAppointment/UpdatePatient',
     DELETE_PATIENT_URL: '/api/HospitalAppointment/DeletePatientByPatienId',
-    ADD_PATIENT_URL: '/api/HospitalAppointment/AddNewPatient'
+    ADD_PATIENT_URL: '/api/HospitalAppointment/AddNewPatient',
+    DASHBOARD_DATA_URL: '/api/HospitalAppointment/GetDashboardData',
+    GET_ALL_APPOINTMENTS_URL: '/api/HospitalAppointment/GetAllAppointments'
 };

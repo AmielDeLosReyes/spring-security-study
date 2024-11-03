@@ -26,7 +26,15 @@ export class MasterServiceService {
     const deleteUrl = `${environment.DELETE_PATIENT_URL}?patientId=${patientId}`;
     console.log(`Attempting to delete patient at URL: ${deleteUrl}`); // Log the URL
     return this.http.delete<APIResponseModel>(deleteUrl);
-}
+  }
+
+  getDashboardData(): Observable<APIResponseModel> {
+    return this.http.get<APIResponseModel>(environment.DASHBOARD_DATA_URL);
+  }
+  
+  getAllAppointments(): Observable<APIResponseModel> {
+    return this.http.get<APIResponseModel>(environment.GET_ALL_APPOINTMENTS_URL);
+  }
 
   
 }
