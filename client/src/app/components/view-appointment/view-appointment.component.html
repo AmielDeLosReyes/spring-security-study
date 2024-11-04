@@ -1,0 +1,128 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+  <div class="card shadow-lg rounded-3 p-4 mb-4">
+    <h2 class="card-title text-center mb-4">Appointment Details</h2>
+
+    <!-- Bootstrap alert for success message -->
+
+    @if(showAlert) {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Appointment Marked as Done
+            <button type="button" class="btn-close" aria-label="Close" (click)="showAlert = false"></button>
+        </div>
+    }
+    
+    <div class="row mb-4">
+      <div class="col-lg-6 col-md-12 mb-3">
+        <div class="detail-item">
+          <strong>Appointment ID: </strong>
+          <span class="value">{{ appointmentData?.appointmentId }}</span>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 mb-3">
+        <div class="detail-item">
+          <strong>Patient ID: </strong>
+          <span class="value">{{ appointmentData?.patientId }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-lg-6 col-md-12 mb-3">
+        <div class="detail-item">
+          <strong>Appointment Date: </strong>
+          <span class="value">{{ appointmentData?.appointmentDate | date: 'fullDate' }}</span>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 mb-3">
+        <div class="detail-item">
+          <strong>Appointment Time: </strong>
+          <span class="value">{{ appointmentData?.appointmentTime }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-lg-6 col-md-12 mb-3">
+        <div class="detail-item">
+          <strong>Is First Visit: </strong> 
+          <span class="badge rounded-pill" [ngClass]="{'bg-info': appointmentData?.isFirstVisit, 'bg-secondary': !appointmentData?.isFirstVisit}">
+            {{ appointmentData?.isFirstVisit ? 'Yes' : 'No' }}
+          </span>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 mb-3">
+        <div class="detail-item">
+          <strong>Status: </strong> 
+          <span class="badge rounded-pill" [ngClass]="{'bg-success': appointmentData?.isDone, 'bg-warning': !appointmentData?.isDone}">
+            {{ appointmentData?.isDone ? 'Completed' : 'Pending' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-lg-6 col-md-12 mb-3">
+        <div class="detail-item">
+          <strong>Appointment No: </strong>
+          <span class="value">{{ appointmentData?.appointmentNo }}</span>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 mb-3">
+        <div class="detail-item">
+          <strong>Notes/Narration: </strong>
+          <span class="value">{{ appointmentData?.naration ? appointmentData?.naration : 'None' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="card-title text-center mt-4">Patient Details</h3>
+    <div class="row mb-4">
+      <div class="col-lg-6 col-md-12 mb-3">
+        <div class="detail-item">
+          <strong>Name: </strong>
+          <span class="value">{{ patientData?.name }}</span>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 mb-3">
+        <div class="detail-item">
+          <strong>Mobile No: </strong>
+          <span class="value">{{ patientData?.mobileNo }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-lg-6 col-md-12 mb-3">
+        <div class="detail-item">
+          <strong>City: </strong>
+          <span class="value">{{ patientData?.city }}</span>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-3">
+        <div class="detail-item">
+          <strong>Age: </strong>
+          <span class="value">{{ patientData?.age }}</span>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-3">
+        <div class="detail-item">
+          <strong>Gender: </strong>
+          <span class="value">{{ patientData?.gender || 'N/A' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-primary btn-lg me-2" (click)="goBack()">Back to Appointments</button>
+        <button 
+          *ngIf="appointmentData && !appointmentData.isDone" 
+          class="btn btn-success btn-lg" 
+          (click)="markAsDone(appointmentData?.appointmentId)">
+          Mark as Done
+        </button>
+    </div>
+    
+    
+      
+  </div>
+</div>

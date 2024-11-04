@@ -14,6 +14,7 @@ import { PatientNavbarComponent } from './components/patients/patient-navbar/pat
 import { AddPatientComponent } from './components/patients/add-patient/add-patient.component';
 import { UpdatePatientComponent } from './components/patients/update-patient/update-patient.component';
 import { ManagePatientComponent } from './components/patients/manage-patient/manage-patient.component';
+import { ViewAppointmentComponent } from './components/view-appointment/view-appointment.component';
 
 export const routes: Routes = [
     {
@@ -62,6 +63,11 @@ export const routes: Routes = [
     {
         path: 'user-settings',
         component: SettingsComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'user-appointment/:id', 
+        component: ViewAppointmentComponent,
         canActivate: [authGuard]
     },
     {
