@@ -1,50 +1,54 @@
 <app-navbar></app-navbar>
 <div class="container mt-4">
-    <h2 class="mb-4">All Appointments</h2>
+  <h2 class="mb-4">All Appointments</h2>
 
-    <!-- Bootstrap alert for success message -->
-    @if(showAlert) {
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        Appointment Marked as Done
-        <button type="button" class="btn-close" aria-label="Close" (click)="showAlert = false"></button>
-      </div>
-    }
-
-    <!-- Search and Date Filters -->
-    <div class="mb-4">
-      <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Search by Patient Name" 
-          [(ngModel)]="searchName" 
-          (input)="applyFilters()" 
-      />
+  <!-- Alert for success message -->
+  @if (showAlert) {
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      Appointment Marked as Done
+      <button type="button" class="btn-close" aria-label="Close" (click)="showAlert = false"></button>
     </div>
+  }
 
-    <div class="mb-4">
-      <input 
-          type="date" 
-          class="form-control" 
-          [(ngModel)]="searchDate" 
-          (change)="applyFilters()" 
-      />
-    </div>
+  <!-- Filters -->
+  <div class="mb-4">
+    <input 
+      type="text" 
+      class="form-control" 
+      placeholder="Search by Patient Name" 
+      [(ngModel)]="searchName" 
+      (input)="applyFilters()" 
+    />
+  </div>
 
-    <table class="table table-hover table-bordered shadow-sm">
-      <thead class="table-light">
+  <div class="mb-4">
+    <input 
+      type="date" 
+      class="form-control" 
+      [(ngModel)]="searchDate" 
+      (change)="applyFilters()" 
+    />
+  </div>
+
+  <!-- Appointments Table -->
+  <table class="table table-hover table-bordered shadow-sm">
+    <thead class="table-light">
+      <tr>
+        <th></th>
+        <th>Appointment No.</th>
+        <th>Patient Name</th>
+        <th>Mobile No.</th>
+        <th>Appointment Date</th>
+        <th>Time</th>
+        <th>First Visit</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (appointment of filteredAppointments; track $index) {
         <tr>
-          <th scope="col">Appointment No.</th>
-          <th scope="col">Patient Name</th>
-          <th scope="col">Mobile No.</th>
-          <th scope="col">Appointment Date</th>
-          <th scope="col">Time</th>
-          <th scope="col">First Visit</th>
-          <th scope="col">Status</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let appointment of filteredAppointments">
+          <td>{{ (currentPage - 1) * itemsPerPage + $index + 1 }}</td>
           <td>{{ appointment.appointmentId }}</td>
           <td>{{ appointment.name }}</td>
           <td>{{ appointment.mobileNo }}</td>
@@ -60,16 +64,32 @@
             <button class="btn btn-sm btn-primary me-2" (click)="viewDetails(appointment.appointmentId)">
               View
             </button>
-            <button
-              class="btn btn-sm"
-              [ngClass]="appointment.isDone ? 'btn-success' : 'btn-secondary'"
-              (click)="markAsDone(appointment.appointmentId)"
-              [disabled]="appointment.isDone"
-            >
+            <button class="btn btn-sm" 
+                    [ngClass]="appointment.isDone ? 'btn-success' : 'btn-secondary'" 
+                    (click)="markAsDone(appointment.appointmentId)" 
+                    [disabled]="appointment.isDone">
               {{ appointment.isDone ? 'Appointment Done' : 'Mark as Done' }}
             </button>
           </td>
         </tr>
-      </tbody>
-    </table>
+      }
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <nav>
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" style="cursor: pointer;" (click)="goToPreviousPage()">Previous</a>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">{{ currentPage }} of {{ totalPages }}</span>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <!-- <a class="page-link" (click)="goToNextPage()">Next</a> -->
+        <span class="page-link" style="cursor: pointer;" (click)="goToNextPage()">Next</span>
+
+      </li>
+    </ul>
+  </nav>
 </div>

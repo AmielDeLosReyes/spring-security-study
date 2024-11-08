@@ -22,6 +22,12 @@ export class AppointmentsComponent implements OnInit {
   searchName: string = ''; 
   searchDate: string | null = null; 
   showAlert: boolean = false;
+  appointmentIdToMark: number | undefined;
+
+  // Pagination properties
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalPages: number = 1;
 
   ngOnInit(): void {
     this.getAllAppointments(); // Fetch appointments when the component initializes
@@ -48,20 +54,18 @@ export class AppointmentsComponent implements OnInit {
     });
   }
 
-  // Apply filters based on searchName and searchDate
-
   applyFilters() {
-    this.filteredAppointments = this.appointments.filter(appointment => {
+    const filtered = this.appointments.filter(appointment => {
       const matchesName = appointment.name?.toLowerCase().includes(this.searchName.toLowerCase());
-  
-      // Extract only the date part from appointmentDate for comparison
       const appointmentDate = appointment.appointmentDate.split('T')[0];
       const matchesDate = !this.searchDate || appointmentDate === this.searchDate;
-  
       return matchesName && matchesDate;
     });
+
+    // Update pagination based on filtered results
+    this.totalPages = Math.ceil(filtered.length / this.itemsPerPage);
+    this.filteredAppointments = filtered.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
   }
-  
 
   viewDetails(appointmentId: number) {
     this.router.navigate(['/user-appointment', appointmentId]);
@@ -74,16 +78,14 @@ export class AppointmentsComponent implements OnInit {
           if (response.result) {
             const appointment = this.appointments.find(app => app.appointmentId === appointmentId);
             if (appointment) {
-              appointment.isDone = true; // Mark the appointment as done locally
+              appointment.isDone = true;
               console.log('Marked appointment ID as done:', appointmentId);
-              this.showAlert = true; // Show the alert
+              this.showAlert = true;
 
-              // Hide the alert after 2 seconds
               setTimeout(() => {
                 this.showAlert = false;
               }, 2000);
               
-              // Reapply filters to reflect the updated status
               this.applyFilters();
             }
           } else {
@@ -92,6 +94,21 @@ export class AppointmentsComponent implements OnInit {
         },
         error: (error) => console.error('Error marking appointment as done:', error)
       });
+    }
+  }
+
+  // Pagination navigation methods
+  goToPreviousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.applyFilters();
+    }
+  }
+
+  goToNextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.applyFilters();
     }
   }
 }
