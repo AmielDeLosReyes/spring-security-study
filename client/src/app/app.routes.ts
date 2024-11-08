@@ -15,6 +15,7 @@ import { AddPatientComponent } from './components/patients/add-patient/add-patie
 import { UpdatePatientComponent } from './components/patients/update-patient/update-patient.component';
 import { ManagePatientComponent } from './components/patients/manage-patient/manage-patient.component';
 import { ViewAppointmentComponent } from './components/view-appointment/view-appointment.component';
+import { ViewPatientComponent } from './components/patients/view-patient/view-patient.component';
 
 export const routes: Routes = [
     {
@@ -86,6 +87,10 @@ export const routes: Routes = [
             {
                 path: 'update',
                 component: UpdatePatientComponent // Component for updating a patient
+            },
+            {
+                path: 'view/:patientId', // Add route for viewing a single patient
+                component: ViewPatientComponent // Component for viewing a patient's details
             },
             {
                 path: '', 

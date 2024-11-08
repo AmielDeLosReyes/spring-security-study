@@ -35,7 +35,8 @@
             <label>Gender</label>
             <input [(ngModel)]="patient.gender" name="gender" class="form-control" />
           </div>
-          <button type="submit" class="btn btn-primary">Update Patient</button>
+          <button type="submit" class="btn btn-primary me-2">Update Patient</button>
+          <button class="btn btn-light" (click)="viewPatientDetails(patient.patientId)">View Patient</button>
         </form>
       </div>
 }

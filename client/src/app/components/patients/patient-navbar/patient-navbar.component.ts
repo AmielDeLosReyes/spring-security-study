@@ -9,5 +9,7 @@ import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
   styleUrl: './patient-navbar.component.css'
 })
 export class PatientNavbarComponent {
-
+  viewPatientAlert(): void {
+    alert("Please select a specific patient to view details.");
+  }
 }

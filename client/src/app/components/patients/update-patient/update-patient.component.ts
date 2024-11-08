@@ -48,6 +48,10 @@ export class UpdatePatientComponent implements OnInit{
       }
     });
   }
+
+  viewPatientDetails(patientId: number) {
+    this.router.navigate(['/patient-management/view', patientId]);
+  }
   
 
 }

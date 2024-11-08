@@ -12,6 +12,9 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/patient-management/update']" routerLinkActive="active">Update Patient</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/patient-management/view']" routerLinkActive="active" (click)="viewPatientAlert()">View Patient</a>
+      </li>
     </ul>
   
     <!-- Router outlet to load content based on navigation -->

@@ -1,0 +1,46 @@
+<div class="container mt-5">
+    @if(isLoading) {
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    }
+    
+    @if(!isLoading && !patientData) {
+        <div class="alert alert-danger text-center mt-4">
+            Patient details could not be loaded.
+        </div>
+    }
+    
+    @if(!isLoading && patientData) {
+        <div class="card shadow-lg rounded-3 p-4 mb-4">
+            <h2 class="card-title text-center mb-4">Patient Details</h2>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <strong>Name:</strong> {{ patientData.name }}
+              </div>
+              <div class="col-md-6">
+                <strong>Mobile No:</strong> {{ patientData.mobileNo }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <strong>City:</strong> {{ patientData.city }}
+              </div>
+              <div class="col-md-3">
+                <strong>Age:</strong> {{ patientData.age }}
+              </div>
+              <div class="col-md-3">
+                <strong>Gender:</strong> {{ patientData.gender || 'N/A' }}
+              </div>
+            </div>
+            <div class="text-center mt-4">
+              <button class="btn btn-primary btn-lg me-2" (click)="router.navigate(['/patient-management/list'])">Back to Patient List</button>
+              <button (click)="onEdit(patientData)" class="btn btn-secondary btn-lg me-2">Edit</button>
+              <button (click)="onDelete(patientData.patientId)" class="btn btn-danger btn-lg">Delete</button>
+            </div>
+        </div>
+    }  
+</div>
+  

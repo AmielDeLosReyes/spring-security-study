@@ -36,28 +36,32 @@ export class ManagePatientComponent implements OnInit {
 }
 
 
-onDelete(patientId: number) {
-  // Find the patient name before deletion for the alert
-  const patient = this.patientList.find(p => p.patientId === patientId);
-  if (patient) {
-    this.masterService.deletePatient(patientId).subscribe({
-      next: () => {
-        this.deletedPatientName = patient.name; // Set deleted patient name
-        this.loadAllPatients(); // Reload patient list after deletion
-        // Hide alert after 3 seconds
-        setTimeout(() => {
-          this.deletedPatientName = null;
-        }, 8000);
-      },
-      error: (err) => {
-        console.error('Error deleting patient:', err);
-      }
-    });
+  onDelete(patientId: number) {
+    // Find the patient name before deletion for the alert
+    const patient = this.patientList.find(p => p.patientId === patientId);
+    if (patient) {
+      this.masterService.deletePatient(patientId).subscribe({
+        next: () => {
+          this.deletedPatientName = patient.name; // Set deleted patient name
+          this.loadAllPatients(); // Reload patient list after deletion
+          // Hide alert after 3 seconds
+          setTimeout(() => {
+            this.deletedPatientName = null;
+          }, 8000);
+        },
+        error: (err) => {
+          console.error('Error deleting patient:', err);
+        }
+      });
+    }
   }
-}
 
   onEdit(patient: IPatient) {
     this.router.navigate(['/patient-management/update'], { state: { patient } });
+  }
+
+  viewPatientDetails(patientId: number) {
+    this.router.navigate(['/patient-management/view', patientId]);
   }
 
 

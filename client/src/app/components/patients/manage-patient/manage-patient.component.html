@@ -25,8 +25,9 @@
             
             <!-- Action Buttons -->
             <div class="patient-actions">
+                <button (click)="viewPatientDetails(patient.patientId)" class="btn btn-outline-primary btn-sm me-2">View</button>
                 <button (click)="onEdit(patient)" class="btn btn-outline-secondary btn-sm me-2">Edit</button>
-              <button (click)="onDelete(patient.patientId)" class="btn btn-outline-danger btn-sm">Delete</button>
+                <button (click)="onDelete(patient.patientId)" class="btn btn-outline-danger btn-sm">Delete</button>
             </div>
           </div>
         }
