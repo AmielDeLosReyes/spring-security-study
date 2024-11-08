@@ -117,7 +117,7 @@
         <button 
           *ngIf="appointmentData && !appointmentData.isDone" 
           class="btn btn-success btn-lg" 
-          (click)="markAsDone(appointmentData?.appointmentId)">
+          (click)="markAsDone(appointmentData.appointmentId)">
           Mark as Done
         </button>
     </div>

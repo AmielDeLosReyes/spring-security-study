@@ -17,6 +17,7 @@
           class="form-control" 
           placeholder="Search by Patient Name" 
           [(ngModel)]="searchName" 
+          (input)="applyFilters()" 
       />
     </div>
 
@@ -25,6 +26,7 @@
           type="date" 
           class="form-control" 
           [(ngModel)]="searchDate" 
+          (change)="applyFilters()" 
       />
     </div>
 
@@ -42,7 +44,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let appointment of appointments">
+        <tr *ngFor="let appointment of filteredAppointments">
           <td>{{ appointment.appointmentId }}</td>
           <td>{{ appointment.name }}</td>
           <td>{{ appointment.mobileNo }}</td>

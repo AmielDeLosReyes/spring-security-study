@@ -14,9 +14,9 @@ import { Appointment, APIResponseModel } from '../../model/interface/APIResponse
   styleUrls: ['./appointments.component.css']
 })
 export class AppointmentsComponent implements OnInit {
-
   masterService = inject(MasterServiceService);
-  appointments: Appointment[] = []; // Array to hold the appointments
+  appointments: Appointment[] = []; // All appointments fetched from the API
+  filteredAppointments: Appointment[] = []; // Appointments after applying filters
   router = inject(Router);
 
   searchName: string = ''; 
@@ -32,16 +32,33 @@ export class AppointmentsComponent implements OnInit {
       next: (response) => {
         if (response.result) {
           this.appointments = response.data;
-  
+          
           // Sort appointments by appointmentDate in descending order
           this.appointments.sort((a, b) => {
             const dateA = new Date(a.appointmentDate).getTime();
             const dateB = new Date(b.appointmentDate).getTime();
             return dateB - dateA; // For descending order
           });
+
+          // Apply initial filters (if any)
+          this.applyFilters();
         }
       },
       error: (error) => console.error('Error fetching appointments:', error)
+    });
+  }
+
+  // Apply filters based on searchName and searchDate
+
+  applyFilters() {
+    this.filteredAppointments = this.appointments.filter(appointment => {
+      const matchesName = appointment.name?.toLowerCase().includes(this.searchName.toLowerCase());
+  
+      // Extract only the date part from appointmentDate for comparison
+      const appointmentDate = appointment.appointmentDate.split('T')[0];
+      const matchesDate = !this.searchDate || appointmentDate === this.searchDate;
+  
+      return matchesName && matchesDate;
     });
   }
   
@@ -65,6 +82,9 @@ export class AppointmentsComponent implements OnInit {
               setTimeout(() => {
                 this.showAlert = false;
               }, 2000);
+              
+              // Reapply filters to reflect the updated status
+              this.applyFilters();
             }
           } else {
             console.error('Failed to mark appointment as done:', response.message);
