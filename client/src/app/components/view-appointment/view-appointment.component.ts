@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MasterServiceService } from '../../service/master-service.service';
 import { Appointment, APIResponseModel } from '../../model/interface/APIResponseModel';
 import { NavbarComponent } from "../navbar/navbar.component";
+// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 interface Patient {
   patientId: number;
@@ -28,9 +30,12 @@ export class ViewAppointmentComponent implements OnInit {
   masterService = inject(MasterServiceService);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  // modalService = inject(NgbModal);
   
   // New property to manage alert visibility
   showAlert: boolean = false;
+  appointmentToDelete: number | undefined;  // Holds appointment ID to delete
+
 
   ngOnInit(): void {
     const appointmentId = this.route.snapshot.params['id'];
@@ -84,6 +89,28 @@ export class ViewAppointmentComponent implements OnInit {
           }
         },
         error: (error) => console.error('Error marking appointment as done:', error)
+      });
+    }
+  }
+
+  deleteAppointment(appointmentId: number | undefined) {
+    this.appointmentToDelete = appointmentId;
+    // Show the modal (Bootstrap 5)
+    const modal = new (window as any).bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+    modal.show();
+  }
+
+  confirmDelete() {
+    if (this.appointmentToDelete !== undefined) {
+      this.masterService.deleteAppointmentById(this.appointmentToDelete).subscribe({
+        next: (response: APIResponseModel) => {
+          if (response.result) {
+            this.router.navigate(['/user-appointments']);  // Navigate back after successful deletion
+          } else {
+            console.error('Failed to delete appointment:', response.message);
+          }
+        },
+        error: (error) => console.error('Error deleting appointment:', error)
       });
     }
   }

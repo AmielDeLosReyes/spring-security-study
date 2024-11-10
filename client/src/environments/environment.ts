@@ -10,5 +10,6 @@ export const environment = {
     DASHBOARD_DATA_URL: '/api/HospitalAppointment/GetDashboardData',
     GET_ALL_APPOINTMENTS_URL: '/api/HospitalAppointment/GetAllAppointments',
     GET_SINGLE_APPOINTMENT_URL: '/api/HospitalAppointment/GetAppointmentByAppointmentId',
-    MARK_APPTMNT_AS_DONE_URL: '/api/HospitalAppointment/MarkAppointmentDone'
+    MARK_APPTMNT_AS_DONE_URL: '/api/HospitalAppointment/MarkAppointmentDone',
+    DELETE_SINGLE_APPOINTMENT_URL: '/api/HospitalAppointment/DeleteAppointmentByAppointment'
 };

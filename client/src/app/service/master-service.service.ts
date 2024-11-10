@@ -54,5 +54,10 @@ export class MasterServiceService {
     return this.http.get<APIResponseModel>(markAppointmentAsDoneUrl);
   }
 
+  deleteAppointmentById(appointmentId: number): Observable<APIResponseModel> {
+    const deleteSingleAppointmentUrl = `${environment.DELETE_SINGLE_APPOINTMENT_URL}?appointmentId=${appointmentId}`;
+    console.log(`Attempting to delete appointment ${appointmentId} at URL: ${deleteSingleAppointmentUrl}`);
+    return this.http.delete<APIResponseModel>(deleteSingleAppointmentUrl);
+  }
   
 }

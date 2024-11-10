@@ -2,12 +2,22 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h2 class="text-center">Login</h2>
+
+            <!-- Success Alert -->
+            <div *ngIf="successMessage" class="alert alert-success">
+                {{ successMessage }}
+            </div>
+
+            <!-- Error Alert -->
+            <div *ngIf="errorMessage" class="alert alert-danger">
+                {{ errorMessage }}
+            </div>
+
             <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input [(ngModel)]="userObj.email" name="email" required type="email" 
-                    #email="ngModel"
-                    class="form-control" placeholder="Enter your email">
+                    <input [(ngModel)]="userObj.email" name="email" required type="email"
+                           #email="ngModel" class="form-control" placeholder="Enter your email">
                     @if(email.touched) {
                         <div class="text-danger">
                             @if(email?.errors?.['required']) {
@@ -15,12 +25,12 @@
                             }
                         </div>
                     }
-                  </div>
+                </div>
 
-                  <div class="form-group">
+                <div class="form-group">
                     <label for="password">Password:</label>
                     <input [(ngModel)]="userObj.password" name="password" required type="password"
-                    #password="ngModel" class="form-control" placeholder="Enter your password">
+                           #password="ngModel" class="form-control" placeholder="Enter your password">
                     @if(password.touched) {
                         <div class="text-danger">
                             @if(password?.errors?.['required']) {
@@ -28,17 +38,23 @@
                             }
                         </div>
                     }
-                  </div>
+                </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    @if(isLoading) {
+                        <button type="submit" class="btn btn-primary btn-block" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Loading...
+                        </button>
+                    } @else {
+                        <button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.valid">Login</button>
+                    }
                 </div>
 
                 <div class="form-group text-center">
                     <p>Don't have an account? <a routerLink="/registration">Register here</a></p>
                     <p><a routerLink="/forgot-password">Forgot password?</a></p>
                     <p><a [routerLink]="['/']" routerLinkActive="active">Go back home</a></p>
-
                 </div>
             </form>
         </div>
