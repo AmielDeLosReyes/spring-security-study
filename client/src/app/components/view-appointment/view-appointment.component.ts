@@ -4,8 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MasterServiceService } from '../../service/master-service.service';
 import { Appointment, APIResponseModel } from '../../model/interface/APIResponseModel';
 import { NavbarComponent } from "../navbar/navbar.component";
-// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface Patient {
   patientId: number;
@@ -30,12 +29,11 @@ export class ViewAppointmentComponent implements OnInit {
   masterService = inject(MasterServiceService);
   route = inject(ActivatedRoute);
   router = inject(Router);
-  // modalService = inject(NgbModal);
-  
+  modalService = inject(NgbModal);
+
   // New property to manage alert visibility
   showAlert: boolean = false;
   appointmentToDelete: number | undefined;  // Holds appointment ID to delete
-
 
   ngOnInit(): void {
     const appointmentId = this.route.snapshot.params['id'];
@@ -53,7 +51,7 @@ export class ViewAppointmentComponent implements OnInit {
       error: (error) => console.error('Error fetching appointment details:', error)
     });
   }
-  
+
   getPatientDetails(patientId: number): void {
     this.masterService.getSinglePatient(patientId).subscribe({
       next: (response) => {
@@ -93,11 +91,12 @@ export class ViewAppointmentComponent implements OnInit {
     }
   }
 
+  // Open the delete confirmation modal
   deleteAppointment(appointmentId: number | undefined) {
     this.appointmentToDelete = appointmentId;
-    // Show the modal (Bootstrap 5)
-    const modal = new (window as any).bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
-    modal.show();
+    // Open the modal and pass the appointment ID
+    const modalRef = this.modalService.open(DeleteConfirmationModal);
+    modalRef.componentInstance.appointmentId = appointmentId;
   }
 
   confirmDelete() {
@@ -106,6 +105,69 @@ export class ViewAppointmentComponent implements OnInit {
         next: (response: APIResponseModel) => {
           if (response.result) {
             this.router.navigate(['/user-appointments']);  // Navigate back after successful deletion
+          } else {
+            console.error('Failed to delete appointment:', response.message);
+          }
+        },
+        error: (error) => console.error('Error deleting appointment:', error)
+      });
+    }
+  }
+}
+
+// Modal component for confirmation
+@Component({
+  selector: 'app-delete-confirmation-modal',
+  template: `
+    <div class="modal-header">
+      <h5 class="modal-title">Confirm Deletion</h5>
+      <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete this appointment?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+      <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+    </div>
+  `,
+  styles: [`
+    .modal-header {
+      position: relative;
+    }
+    .modal-header .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      color: #000;
+      background: none;
+      border: none;
+    }
+    .modal-header .close:hover {
+      color: #f00;  /* Optional: color change on hover */
+    }
+  `]
+})
+
+export class DeleteConfirmationModal {
+  appointmentId: number | undefined;
+
+  constructor(
+    public modal: NgbActiveModal,  // Use NgbActiveModal here instead of NgbModal
+    private masterService: MasterServiceService,
+    private router: Router
+  ) {}
+
+  delete() {
+    if (this.appointmentId !== undefined) {
+      this.masterService.deleteAppointmentById(this.appointmentId).subscribe({
+        next: (response: APIResponseModel) => {
+          if (response.result) {
+            this.modal.dismiss();  // Close the modal after deletion
+            this.router.navigate(['/user-appointments']);  // Navigate after successful deletion
           } else {
             console.error('Failed to delete appointment:', response.message);
           }
